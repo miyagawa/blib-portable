@@ -21,14 +21,13 @@ sub import {
     }
 
     my $i = 5;
-    my($blib, $blib_lib, $blib_arch);
+    my($blib, $blib_arch);
     while ($i--) {
         $blib = $dir;
-        $blib_lib  = File::Spec->catdir($blib, "lib");
         $blib_arch = File::Spec->catdir($blib, "arch", $Config{archname});
 
-        if (-d $blib && -d $blib_arch && -d $blib_lib) {
-            unshift(@INC,$blib_arch,$blib_lib);
+        if (-d $blib && -d $blib_arch) {
+            unshift(@INC,$blib_arch);
             return;
         }
         $dir = File::Spec->catdir($dir, File::Spec->updir);
@@ -43,7 +42,7 @@ __END__
 
 =encoding utf-8
 
-=for stopwords
+=for stopwords extlib
 
 =head1 NAME
 
@@ -64,16 +63,17 @@ you use.
 This pragma allows you to have directory structure like:
 
   extlib/
-    lib/
-      DBD/
-        SQLite.pm
     arch/
       darwin-thread-multi-2level/
+        DBD/
+          SQLite.pm
         auto/
           DBD/
             SQLite/
               SQLite.bs
       x86_64-linux-thread-multi/
+        DBD/
+          SQLite.pm
         auto/
           DBD/
             SQLite/

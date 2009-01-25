@@ -17,6 +17,6 @@ require blib::portable;
 import blib::portable 't/blib';
 my @after  = @INC;
 
-is $#after, $#before + 2;
+is $#after, $#before + 1;
 
 END { rmdir $dir }
