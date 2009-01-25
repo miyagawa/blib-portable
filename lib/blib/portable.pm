@@ -24,7 +24,7 @@ sub import {
     my($blib, $blib_arch);
     while ($i--) {
         $blib = $dir;
-        $blib_arch = File::Spec->catdir($blib, "arch", $Config{archname});
+        $blib_arch = File::Spec->catdir($blib, "arch", $Config{version}, $Config{archname});
 
         if (-d $blib && -d $blib_arch) {
             unshift(@INC,$blib_arch);
@@ -64,20 +64,21 @@ This pragma allows you to have directory structure like:
 
   extlib/
     arch/
-      darwin-thread-multi-2level/
-        DBD/
-          SQLite.pm
-        auto/
+      5.10.0/
+        darwin-thread-multi-2level/
           DBD/
-            SQLite/
-              SQLite.bs
-      x86_64-linux-thread-multi/
-        DBD/
-          SQLite.pm
-        auto/
+            SQLite.pm
+          auto/
+            DBD/
+              SQLite/
+                SQLite.bs
+        x86_64-linux-thread-multi/
           DBD/
-            SQLite/
-              SQLite.bs
+            SQLite.pm
+          auto/
+            DBD/
+              SQLite/
+                SQLite.bs
 
 and commit to the source code repository or bundle in your application
 to load appropriate binary from your I<extlib>.

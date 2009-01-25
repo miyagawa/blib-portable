@@ -4,9 +4,9 @@ use File::Spec;
 
 my $dir;
 BEGIN {
-    $dir = File::Spec->catfile($FindBin::Bin, "blib", "arch", $Config{archname});
+    $dir = File::Spec->catfile($FindBin::Bin, "blib", "arch", $Config{version}, $Config{archname});
     unless (-e $dir) {
-        mkdir $dir, 0777 or die $!;
+        mkpath $dir, 0, 0777 or die $!;
     }
 }
 
